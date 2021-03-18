@@ -32,7 +32,7 @@ public enum Colors {
     BLUE("\033[0;104m \u001b[0m"),
     PURPLE("\033[0;105m \u001b[0m"),
     CYAN("\033[0;106m \u001b[0m"),
-    WHITE("\033[0;107m \u001b[0m");
+    WHITE("\u001b[48;2;254;254;254m \u001b[0m");
 
     private final String color;
 
@@ -40,7 +40,5 @@ public enum Colors {
         this.color = color;
     }
 
-    public String getColor() {
-        return color;
-    }
+    public String getColor() {return color;}
 }

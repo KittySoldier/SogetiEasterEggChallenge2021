@@ -1,8 +1,14 @@
 package nl.sogeti.com;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 public class EasterEgg {
 
     private static final float EGG_EQUATION_SCALE_FACTOR = 1000;
+
+    public static final EasterEggAnimator animator = new EasterEggAnimator();
 
     /**
      * Draws an easter egg through a modified ellipse equation: (x−a)²/rx² + (y−b)²/ry² = 1
@@ -26,15 +32,7 @@ public class EasterEgg {
         }
     }
 
-    private static void drawSingleEggPoint(final EggMetrics eggMetrics, int yCoordinate, int xCoordinate) {
-        if (isXYPointInsideEgg(eggMetrics, xCoordinate, yCoordinate)) {
-            System.out.print(eggMetrics.getColor());
-        } else {
-            System.out.print(eggMetrics.getBackgroundColor());
-        }
-    }
-
-    private static boolean isXYPointInsideEgg(final EggMetrics eggMetrics, final int xCoordinate, final int yCoordinate) {
+    static boolean isXYPointInsideEgg(final EggMetrics eggMetrics, final int xCoordinate, final int yCoordinate) {
         return (((calculateSquareOfDistanceFromCenterXPoint(eggMetrics.getCenterXPoint(), xCoordinate) * EGG_EQUATION_SCALE_FACTOR) / (calculateSquareOfRadius(eggMetrics.getHorizontalRadius()) * factorToChangeToEggShape(yCoordinate))) +
             ((calculateSquareOfDistanceFromCenterYPoint(eggMetrics.getCenterYPoint(), yCoordinate) * EGG_EQUATION_SCALE_FACTOR) / calculateSquareOfRadius(eggMetrics.getVerticalRadius()))) < EGG_EQUATION_SCALE_FACTOR;
     }
@@ -57,5 +55,13 @@ public class EasterEgg {
 
     private static int calculateSquareOfRadius(final int radius) {
         return radius * radius;
+    }
+
+    private static void drawSingleEggPoint(final EggMetrics eggMetrics, int yCoordinate, int xCoordinate) {
+        if (isXYPointInsideEgg(eggMetrics, xCoordinate, yCoordinate)) {
+            animator.drawAnimatorPoint(eggMetrics, xCoordinate, yCoordinate);
+        } else {
+            System.out.print(eggMetrics.getBackgroundColor());
+        }
     }
 }
